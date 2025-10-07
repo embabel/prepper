@@ -8,20 +8,32 @@ import com.embabel.agent.api.common.Ai;
 import com.embabel.agent.api.common.OperationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Agent(description = "A meeting prepper agent that helps users prepare for meetings ")
-public record PrepperAgent(
-        PrepperConfig config,
-        ContactService contactService
-) {
+public class PrepperAgent {
 
     private final static Logger logger = LoggerFactory.getLogger(PrepperAgent.class);
+    
+    private final PrepperConfig config;
+    private final ContactService contactService;
 
-    public PrepperAgent {
+    public PrepperAgent(PrepperConfig config, ContactService contactService) {
+        this.config = config;
+        this.contactService = contactService;
         logger.info("Initialized PrepperAgent with config: {}", config);
     }
+    
+    public PrepperConfig config() {
+        return config;
+    }
+    
+    public ContactService contactService() {
+        return contactService;
+    }
 
+    @Transactional
     @Action
     public Domain.Participants researchParticipants(Domain.Meeting meeting, OperationContext embabel) {
         var researcher = config.researcher()

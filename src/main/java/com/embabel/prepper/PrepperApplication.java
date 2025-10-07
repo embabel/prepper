@@ -31,8 +31,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaRepositories(basePackages = "com.embabel.prepper")
 @EnableJpaAuditing
 @EnableAgents(
-        loggingTheme = LoggingThemes.SEVERANCE,
-        mcpServers = {McpServers.DOCKER_DESKTOP}
+        loggingTheme = LoggingThemes.SEVERANCE/*,
+        mcpServers = {McpServers.DOCKER_DESKTOP}*/
 )
 class PrepperApplication {
     public static void main(String[] args) {
