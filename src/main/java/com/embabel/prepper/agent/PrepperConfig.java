@@ -1,6 +1,6 @@
 package com.embabel.prepper.agent;
 
-import com.embabel.agent.prompt.persona.Actor;
+import com.embabel.agent.api.common.Actor;
 import com.embabel.agent.prompt.persona.RoleGoalBackstory;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;

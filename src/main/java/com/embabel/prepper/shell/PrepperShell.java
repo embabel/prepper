@@ -1,20 +1,21 @@
 package com.embabel.prepper.shell;
 
-import com.embabel.agent.api.common.autonomy.AgentInvocation;
+import com.embabel.agent.api.invocation.AgentInvocation;
 import com.embabel.agent.core.AgentPlatform;
 import com.embabel.agent.core.ProcessOptions;
+import com.embabel.agent.core.Verbosity;
 import com.embabel.prepper.agent.Domain;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.core.command.annotation.Command;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-@ShellComponent
+@Component
 record PrepperShell(AgentPlatform agentPlatform) {
 
-    @ShellMethod("prep")
+    @Command(name = "prep", description = "Prepare a meeting briefing")
     String prep() {
         var scanner = new Scanner(System.in);
 
@@ -53,7 +54,7 @@ record PrepperShell(AgentPlatform agentPlatform) {
 
         var meeting = new Domain.Meeting(context, objective, participants);
         var briefing = AgentInvocation.builder(agentPlatform)
-                .options(ProcessOptions.builder().verbosity(v -> v.showPrompts(true)).build())
+                .options(ProcessOptions.DEFAULT.withVerbosity(new Verbosity(true)))
                 .build(Domain.Briefing.class)
                 .invoke(meeting);
         return briefing.briefing();

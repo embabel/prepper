@@ -1,6 +1,6 @@
 package com.embabel.prepper.agent.agent;
 
-import com.embabel.agent.testing.integration.EmbabelMockitoIntegrationTest;
+import com.embabel.agent.test.integration.EmbabelMockitoIntegrationTest;
 import org.junit.jupiter.api.BeforeAll;
 
 /**
