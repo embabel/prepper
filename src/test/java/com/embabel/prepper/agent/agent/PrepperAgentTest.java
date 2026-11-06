@@ -1,6 +1,21 @@
+/*
+ * Copyright 2024-2026 Embabel Pty Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.embabel.prepper.agent.agent;
 
-import com.embabel.agent.prompt.persona.Actor;
+import com.embabel.agent.api.common.Actor;
 import com.embabel.agent.prompt.persona.RoleGoalBackstory;
 import com.embabel.common.ai.model.LlmOptions;
 import com.embabel.prepper.agent.PrepperConfig;
@@ -11,10 +26,10 @@ class PrepperAgentTest {
     final LlmOptions llm = LlmOptions.withAutoLlm();
 
     final PrepperConfig config = new PrepperConfig(
-            new Actor<>(RoleGoalBackstory.withRole("researcher").andGoal("perform reseearch").andBackstory("i am clever"), llm),
-            new Actor<>(RoleGoalBackstory.withRole("industry analyzer").andGoal("goal").andBackstory("i am thorough"), llm),
-            new Actor<>(RoleGoalBackstory.withRole("meeting strategist").andGoal("goal").andBackstory("i am strategic"), llm),
-            new Actor<>(RoleGoalBackstory.withRole("briefing writer").andGoal("goal").andBackstory("i am eloquent"), llm),
+            new Actor<>(new RoleGoalBackstory("researcher", "perform reseearch", "i am clever"), llm),
+            new Actor<>(new RoleGoalBackstory("industry analyzer", "goal", "i am thorough"), llm),
+            new Actor<>(new RoleGoalBackstory("meeting strategist", "goal", "i am strategic"), llm),
+            new Actor<>(new RoleGoalBackstory("briefing writer", "goal", "i am eloquent"), llm),
             2
     );
 

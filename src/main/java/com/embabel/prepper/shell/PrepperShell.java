@@ -1,20 +1,36 @@
+/*
+ * Copyright 2024-2026 Embabel Pty Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.embabel.prepper.shell;
 
-import com.embabel.agent.api.common.autonomy.AgentInvocation;
+import com.embabel.agent.api.invocation.AgentInvocation;
 import com.embabel.agent.core.AgentPlatform;
 import com.embabel.agent.core.ProcessOptions;
+import com.embabel.agent.core.Verbosity;
 import com.embabel.prepper.agent.Domain;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.core.command.annotation.Command;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-@ShellComponent
+@Component
 record PrepperShell(AgentPlatform agentPlatform) {
 
-    @ShellMethod("prep")
+    @Command(name = "prep", description = "Prepare a meeting briefing")
     String prep() {
         var scanner = new Scanner(System.in);
 
@@ -53,7 +69,7 @@ record PrepperShell(AgentPlatform agentPlatform) {
 
         var meeting = new Domain.Meeting(context, objective, participants);
         var briefing = AgentInvocation.builder(agentPlatform)
-                .options(ProcessOptions.builder().verbosity(v -> v.showPrompts(true)).build())
+                .options(ProcessOptions.DEFAULT.withVerbosity(new Verbosity(true)))
                 .build(Domain.Briefing.class)
                 .invoke(meeting);
         return briefing.briefing();
