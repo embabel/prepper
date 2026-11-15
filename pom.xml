@@ -23,6 +23,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- GHSA-xxph-c9ww-hj94: pin patched Guava until the upstream BOM manages it. -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>33.7.2-jre</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.embabel.agent</groupId>
                 <artifactId>embabel-agent-dependencies</artifactId>
